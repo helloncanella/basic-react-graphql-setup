@@ -94,7 +94,12 @@ function App() {
 const fields = [
   { key: "name", label: "Nome" },
   { key: "age", label: "Idade", type: "number" },
-  { key: "specie", label: "Espécie do pet", type: "text" },
+  {
+    key: "specie",
+    label: "Espécie",
+    type: "radioGroup",
+    options: [{ value: "cat", label: "Gato" }, { value: "dog", label: "dog" }]
+  },
   { key: "owner", label: "Proprietário", type: "text" },
   { key: "whatsapp", label: "Whatsapp", type: "text" },
   { key: "start", label: "De", type: "text" },
@@ -110,9 +115,25 @@ const sections = [
     fields: [
       { key: "name", label: "Nome" },
       { key: "age", label: "Idade", type: "number" },
-      { key: "specie", label: "Espécie", type: "text" },
-      { key: "isNeuter", label: "É castrado?" }
-    ]
+      {
+        key: "specie",
+        label: "Espécie",
+        type: "radioGroup",
+        options: [
+          { value: "cat", label: "Gato" },
+          { value: "dog", label: "dog" }
+        ]
+      },
+      {
+        key: "isNeuter",
+        label: "É castrado?",
+        type: "radioGroup",
+        options: [
+          { value: "true", label: "Sim" },
+          { value: "false", label: "Não" }
+        ]
+      }
+    ].map(field => ({ ...field, key: ["pet", field.key].join(".") }))
   },
   {
     title: {
@@ -123,7 +144,7 @@ const sections = [
       { key: "name", label: "Nome" },
       { key: "whatsapp", label: "WhatsApp", type: "text" },
       { key: "email", label: "Email", type: "email" }
-    ]
+    ].map(field => ({ ...field, key: ["owner", field.key].join(".") }))
   },
   {
     title: {
@@ -133,7 +154,7 @@ const sections = [
     fields: [
       { key: "start", label: "De", type: "text" },
       { key: "end", label: "Até", type: "text" }
-    ]
+    ].map(field => ({ ...field, key: ["period", field.key].join(".") }))
   }
 ]
 
