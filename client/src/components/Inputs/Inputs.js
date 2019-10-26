@@ -1,11 +1,10 @@
 import _ from "lodash"
-import React from "react"
-import getter from "../../../../util/getter"
-import { TextField, MenuItem } from "@material-ui/core"
+import React, { useEffect } from "react"
+import { TextField } from "@material-ui/core"
 import { KeyboardDatePicker } from "@material-ui/pickers"
 import { useState } from "react"
-import CollectionsInput from "./components/CollectionsInput/CollectionsInput"
-import SelectInput from "./components/CollectionsInput/components/SelectInput/SelectInput"
+import getter from "../../util/getter"
+import RadioGroup from "./components/RadioGroup/RadioGroup"
 
 export default {
   text: function TextInput(props) {
@@ -17,8 +16,12 @@ export default {
         className={g("className")}
         inputProps={{
           defaultValue: g("defaultValue"),
-          readOnly: g("readOnly")
+          readOnly: g("readOnly"),
+          type: g("type") || "text"
         }}
+        onChange={e =>
+          _.isFunction(g("onChange")) && g("onChange")(e.target.value)
+        }
         multiline={g("multiline")}
       ></TextField>
     )
@@ -28,34 +31,23 @@ export default {
 
     const [date, setDate] = useState(g("defaultValue"))
 
+    useEffect(() => {
+      _.isFunction(g("onChange")) && g("onChange")(date)
+    }, [date])
+
     return (
       <KeyboardDatePicker
         label={g("label")}
+        className={g("className")}
         clearable
+        // {...(date ? { value: date } : { value: "" })}
         value={date}
         onChange={setDate}
+        disablePast
         format="DD.MM.YYYY"
-        invalidDateMessage="Ungültiges Datumsformat"
-        className={g("className")}
-        inputProps={{
-          readOnly: g("readOnly")
-        }}
+        invalidDateMessage={date ? "Format inválido" : ""}
       />
     )
   },
-  radioGroup: function RadioGroup(props) {
-    return (
-      <RadioGroup aria-label="gender" name="gender1">
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="other" control={<Radio />} label="Other" />
-        <FormControlLabel
-          value="disabled"
-          disabled
-          control={<Radio />}
-          label="(Disabled option)"
-        />
-      </RadioGroup>
-    )
-  }
+  radioGroup: RadioGroup
 }

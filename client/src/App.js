@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core"
 
 import { makeStyles } from "@material-ui/styles"
+import Inputs from "./components/Inputs/Inputs"
 
 function App() {
   const c = useStyles()
@@ -25,7 +26,8 @@ function App() {
       setFormData(clone)
     }
 
-  const numberOfDays = moment(g("period.end")).diff("period.start", "days")
+  const numberOfDays =
+    moment(g("period.end")).diff(g("period.start"), "days") + 1
   const price = 30
 
   return (
@@ -46,13 +48,17 @@ function App() {
             return (
               <fieldset key={`section-${index}`} className={c.fieldset}>
                 <Typography variant="body1">{title.text}</Typography>
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                   {fields.map((f, index) => (
                     <Grid item key={index} xs={4}>
-                      <TextField
-                        {..._.omit(f, "key")}
-                        className={c.input}
-                      ></TextField>
+                      {React.createElement(
+                        Inputs[f.type || "text"] || Inputs["text"],
+                        {
+                          ..._.omit(f, "key"),
+                          className: c.input,
+                          onChange: getOnChange(f.key)
+                        }
+                      )}
                     </Grid>
                   ))}
                 </Grid>
@@ -62,7 +68,7 @@ function App() {
         </form>
 
         <div className={c.bottom}>
-          {numberOfDays > 0 ? (
+          {numberOfDays > 1 ? (
             <div className={c.price}>
               <Typography variant="overline">Total</Typography>
               <div className={c.priceDescription}>
@@ -70,7 +76,7 @@ function App() {
                   R$ {numberOfDays * price},00
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  `{numberOfDays} diárias`
+                  {numberOfDays} diária{numberOfDays === 1 ? "" : "s"}
                 </Typography>
               </div>
             </div>
@@ -81,7 +87,7 @@ function App() {
           <Button
             variant="contained"
             color="primary"
-            disabled={!(numberOfDays > 0)}
+            disabled={!(numberOfDays > 1)}
           >
             Pagamento
           </Button>
@@ -89,28 +95,13 @@ function App() {
       </Paper>
     </div>
   )
+  // return <h1>Hello</h1>
 }
-
-const fields = [
-  { key: "name", label: "Nome" },
-  { key: "age", label: "Idade", type: "number" },
-  {
-    key: "specie",
-    label: "Espécie",
-    type: "radioGroup",
-    options: [{ value: "cat", label: "Gato" }, { value: "dog", label: "dog" }]
-  },
-  { key: "owner", label: "Proprietário", type: "text" },
-  { key: "whatsapp", label: "Whatsapp", type: "text" },
-  { key: "start", label: "De", type: "text" },
-  { key: "end", label: "Até", type: "text" }
-]
 
 const sections = [
   {
     title: {
       text: "Pet"
-      // icon: "pet"
     },
     fields: [
       { key: "name", label: "Nome" },
@@ -121,7 +112,7 @@ const sections = [
         type: "radioGroup",
         options: [
           { value: "cat", label: "Gato" },
-          { value: "dog", label: "dog" }
+          { value: "dog", label: "Cachorro" }
         ]
       },
       {
@@ -152,8 +143,8 @@ const sections = [
       icon: "timer"
     },
     fields: [
-      { key: "start", label: "De", type: "text" },
-      { key: "end", label: "Até", type: "text" }
+      { key: "start", label: "De", type: "date" },
+      { key: "end", label: "Até", type: "date" }
     ].map(field => ({ ...field, key: ["period", field.key].join(".") }))
   }
 ]
@@ -199,7 +190,8 @@ const useStyles = makeStyles(theme => {
       marginBottom: theme.spacing(5)
     },
     input: {
-      width: "100%"
+      width: "100%",
+      marginTop: theme.spacing(2)
     },
 
     form: {
