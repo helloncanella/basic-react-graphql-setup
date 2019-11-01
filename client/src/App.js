@@ -54,7 +54,7 @@ function App() {
                       {React.createElement(
                         Inputs[f.type || "text"] || Inputs["text"],
                         {
-                          ..._.omit(f, "key"),
+                          ...f,
                           className: c.input,
                           onChange: getOnChange(f.key)
                         }

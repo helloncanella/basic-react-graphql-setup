@@ -40,7 +40,7 @@ export default {
         label={g("label")}
         className={g("className")}
         clearable
-        // {...(date ? { value: date } : { value: "" })}
+        {...(date ? { value: date } : { value: "" })}
         value={date}
         onChange={setDate}
         disablePast
