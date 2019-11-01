@@ -1,4 +1,3 @@
-import fs from "fs"
 import http from "http"
 import express from "express"
 import path from "path"

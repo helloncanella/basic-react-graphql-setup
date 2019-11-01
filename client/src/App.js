@@ -39,7 +39,7 @@ function App() {
           <Typography variant="caption">Anfitrião</Typography>
         </div>
       </div>
-      <Paper className={c.container} elevation={3}>
+      {/* <Paper className={c.container} elevation={3}>
         <Icon fontSize="large" className={c.icon}>
           pets
         </Icon>
@@ -89,10 +89,23 @@ function App() {
             color="primary"
             disabled={!(numberOfDays > 1)}
           >
-            Pagamento
-          </Button>
+ton            Pagamento
+          </But>
         </div>
-      </Paper>
+      </Paper> */}
+      {/* <form action="/processar_pagamento" method="POST">
+        <script
+          src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js"
+          data-preference-id="57913797-31f06aa5-e70c-46bf-a086-c7627cf033cb"
+        ></script>
+        <button type="submit">pagar</button>
+      </form> */}
+      <iframe
+        src="https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=57913797-31f06aa5-e70c-46bf-a086-c7627cf033cb"
+        frameborder="0"
+        width={500}
+        height={500}
+      ></iframe>
     </div>
   )
   // return <h1>Hello</h1>
