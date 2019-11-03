@@ -1,0 +1,18 @@
+enum Availability {
+  ONLINE
+  OFFLINE
+}
+
+type User {
+  id: ID!
+  availability: Availability!
+  name: String!
+}
+
+type Query {
+  users: [User]
+}
+
+type Subscription {
+  availabilityChanged: User!
+}

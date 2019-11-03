@@ -8,7 +8,6 @@ const app = express()
 
 const httpServer = http.createServer(app)
 
-import "./apolloServer.js"
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")))
 
