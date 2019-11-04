@@ -6,11 +6,11 @@ enum Availability {
 type User {
   id: ID!
   availability: Availability!
-  name: String!
+  lero: String!
 }
 
 type Query {
-  users: [User]
+  _empty: String
 }
 
 type Subscription {

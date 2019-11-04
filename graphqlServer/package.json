@@ -12,17 +12,17 @@
   "license": "ISC",
   "dependencies": {
     "esm": "^3.2.25",
-    "express": "^4.17.1",
     "graphql-yoga": "^1.18.3",
     "lodash": "^4.17.15",
     "mercadopago": "^1.2.0",
+    "node-dir": "^0.1.17",
     "nodemon": "^1.19.1"
   },
   "nodemonConfig": {
     "ignore": [
-      "client/*",
       "**/*.json"
     ],
+    "ext": "*.js, *.graphql",
     "delay": "100"
   }
 }

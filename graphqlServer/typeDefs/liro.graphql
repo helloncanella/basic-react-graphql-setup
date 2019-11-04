@@ -1,0 +1,9 @@
+type Liro {
+  id: ID!
+  availabilit: Availability!
+  lero: String!
+}
+
+extend type Query {
+  hello: [Liro]
+}
