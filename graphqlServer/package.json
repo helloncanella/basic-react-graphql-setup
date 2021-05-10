@@ -13,7 +13,7 @@
   "dependencies": {
     "esm": "^3.2.25",
     "graphql-yoga": "^1.18.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mercadopago": "^1.2.0",
     "node-dir": "^0.1.17",
     "nodemon": "^1.19.1"
